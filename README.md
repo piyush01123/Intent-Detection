@@ -25,31 +25,33 @@ wget http://nlp.stanford.edu/data/glove.6B.zip
 unzip glove.6B.zip
 ```
 
-
+---
 Run Preprocessing, Get Frequency Summary, Train the model and view result
 ```bash
 python3 prepro.py
 python3 count_frequency.py
-python3 train.py`
+python3 train.py
 ```
-
-## Code Descriptions
-Pre-processing: This converts the data into a JSON format which is essentially
+---
+## Code Walkthrough
+`prepro.py` does the preprocessing and creates train and test JSONs.
+This step converts the data into a JSON format which is essentially
 a list of Python dict objects. Each dict is in the form:
-`{'sentence': _,
+```
+{'sentence': _,
   'intent': _,
   'subintents': _
-}`
+}
+```
+
 `subintents` is again a dict of several subintents.
 
-Run on terminal
-`python3 prepro.py`. This does the preprocessing and creates train and test JSONs.
 
-`python3 count_frequency.py` gives the class probabilities of all intents
+`count_frequency.py` gives the class probabilities of all intents
 
-`python3 tokenize_.py` takes the word embedding text file and returns a proper Python
+
+`tokenize_.py` takes the word embedding text file and returns a proper Python
  dictionary object with keys of word and values of 300-dimensional embeddings in the form
  of Numpy array of dimension (300,)
 
- Train the model and view result
- `python3 train.py`
+ `train.py`  trains the model and shows accuracy.
