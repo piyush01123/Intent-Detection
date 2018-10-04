@@ -3,6 +3,7 @@ Intent Detection on ATIS dataset
 
 ## Required Libraries:
 ```
+tensorflow
 keras
 collections
 json
@@ -10,18 +11,29 @@ numpy
 scikit-learn
 ```
 
-# Reproduction of work
+## Reproduction of work
+Download Train and test datasets
+```bash
+wget https://github.com/piyush-kgp/Intent-Detection/releases/download/1.0/atis-2.train.w-intent.iob.3.txt
+wget https://github.com/piyush-kgp/Intent-Detection/releases/download/1.0/atis.test.w-intent.iob.2.txt
+```
+
+---
 Download Word Embedding file from internet
-`wget http://nlp.stanford.edu/data/glove.6B.zip`
-
-Unzip files
-`unzip glove.6B.zip`
-
-Train the model and view result
-`python3 train.py`
+```bash
+wget http://nlp.stanford.edu/data/glove.6B.zip
+unzip glove.6B.zip
+```
 
 
-# Code Descriptions
+Run Preprocessing, Get Frequency Summary, Train the model and view result
+```bash
+python3 prepro.py
+python3 count_frequency.py
+python3 train.py`
+```
+
+## Code Descriptions
 Pre-processing: This converts the data into a JSON format which is essentially
 a list of Python dict objects. Each dict is in the form:
 `{'sentence': _,
