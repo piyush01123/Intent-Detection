@@ -70,40 +70,40 @@ def LSTM_model(word_index = word_index, embedding_matrix = embedding_matrix):
     return model
 
 
-# def main():
-train_data = json.load(open('train_data.json'))
-test_data = json.load(open('test_data.json'))
-X,  Y = [x['sentence'] for x in train_data], [x['intent'] for x in train_data]
-X_test,  Y_test = [x['sentence'] for x in test_data], [x['intent'] for x in test_data]
-X_train, X_val, Y_train, Y_val = train_test_split(X,Y,test_size=0.15)
+def main():
+    train_data = json.load(open('train_data.json'))
+    test_data = json.load(open('test_data.json'))
+    X,  Y = [x['sentence'] for x in train_data], [x['intent'] for x in train_data]
+    X_test,  Y_test = [x['sentence'] for x in test_data], [x['intent'] for x in test_data]
+    X_train, X_val, Y_train, Y_val = train_test_split(X,Y,test_size=0.15)
 
-all_labels = sorted(list(set(Y).union(Y_test)))
-# label_indexer = {k: v for v, k in enumerate(all_labels)}
-Y_train, Y_val, Y_test = label_encoder(Y_train),label_encoder(Y_val), label_encoder(Y_test)
+    all_labels = sorted(list(set(Y).union(Y_test)))
+    # label_indexer = {k: v for v, k in enumerate(all_labels)}
+    Y_train, Y_val, Y_test = label_encoder(Y_train),label_encoder(Y_val), label_encoder(Y_test)
 
-train_data, train_labels, embedding_matrix, word_index = data_tokenizer(X_train, Y_train)
-test_data, test_labels, _, _ = data_tokenizer(X_test, Y_test)
-val_data, val_labels, _, _ = data_tokenizer(X_val, Y_val)
+    train_data, train_labels, embedding_matrix, word_index = data_tokenizer(X_train, Y_train)
+    test_data, test_labels, _, _ = data_tokenizer(X_test, Y_test)
+    val_data, val_labels, _, _ = data_tokenizer(X_val, Y_val)
 
-conv_model = create_conv_model()
+    conv_model = create_conv_model()
 
-conv_model.compile(loss='categorical_crossentropy',
-              optimizer='rmsprop',
-              metrics=['acc'])
-print(conv_model.summary())
+    conv_model.compile(loss='categorical_crossentropy',
+                  optimizer='rmsprop',
+                  metrics=['acc'])
+    print(conv_model.summary())
 
-conv_model.fit(train_data, train_labels,
-          validation_data=(val_data, val_labels), epochs=2, batch_size=128
-          )
+    conv_model.fit(train_data, train_labels,
+              validation_data=(val_data, val_labels), epochs=2, batch_size=128
+              )
 
 
-lstm_model = LSTM_model()
-lstm_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
-print(lstm_model.summary())
-lstm_model.fit(train_data, train_labels, epochs=3,
-          validation_data=(val_data, val_labels),
-          batch_size=64
-          )
+    lstm_model = LSTM_model()
+    lstm_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
+    print(lstm_model.summary())
+    lstm_model.fit(train_data, train_labels, epochs=3,
+              validation_data=(val_data, val_labels),
+              batch_size=64
+              )
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
