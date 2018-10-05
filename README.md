@@ -1,4 +1,4 @@
-# Intent-Detection
+# Intent Detection Keras Implementation
 Intent Detection on ATIS dataset
 
 ## Required Libraries:
